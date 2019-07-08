@@ -5,6 +5,7 @@ namespace Manga.Application.UseCases
     using Manga.Application.Repositories;
     using Manga.Domain.Accounts;
     using Manga.Domain;
+    using Manga.Application.Services;
 
     public sealed class Register : IUseCase
     {
@@ -12,17 +13,20 @@ namespace Manga.Application.UseCases
         private readonly IOutputHandler _outputHandler;
         private readonly ICustomerRepository _customerRepository;
         private readonly IAccountRepository _accountRepository;
+        private readonly IRegisterUserService registerUserService;
 
         public Register(
             IEntitiesFactory entityFactory,
             IOutputHandler outputHandler,
             ICustomerRepository customerRepository,
-            IAccountRepository accountRepository)
+            IAccountRepository accountRepository,
+            IRegisterUserService registerUserService)
         {
             _entityFactory = entityFactory;
             _outputHandler = outputHandler;
             _customerRepository = customerRepository;
             _accountRepository = accountRepository;
+            this.registerUserService = registerUserService;
         }
 
         public async Task Execute(Input input)

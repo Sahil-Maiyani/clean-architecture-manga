@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Manga.Infrastructure.IdentityAuthentication
 {
-    sealed class RegisterUser : IRegisterUserService
+    public sealed class RegisterUser : IRegisterUserService
     {
         private readonly UserManager<IdentityUser> userManager;
 

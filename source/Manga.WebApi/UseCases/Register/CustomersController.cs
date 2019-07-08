@@ -28,6 +28,7 @@ namespace Manga.WebApi.UseCases.Register
             await _registerUseCase.Execute(new Input(
                 new SSN(request.SSN),
                 new Name(request.Name),
+                new Password(request.Password),
                 new PositiveAmount(request.InitialAmount)));
 
             return _presenter.ViewModel;

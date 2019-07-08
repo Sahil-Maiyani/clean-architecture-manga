@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Manga.Application.Boundaries;
 using Manga.Application.Repositories;
+using Manga.Application.Services;
 using Manga.Application.UseCases;
 using Manga.Domain;
 using Manga.Infrastructure.EntityFrameworkDataAccess;
+using Manga.Infrastructure.IdentityAuthentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -40,6 +42,12 @@ namespace Manga.WebApi
             AddMangaCore(services);
             AddSQLPersistence(services);
             AddIdentity(services);
+            AddAuthentication(services);
+        }
+
+        private void AddAuthentication(IServiceCollection services)
+        {
+            services.AddScoped<IRegisterUserService, RegisterUser>();
         }
 
         private void AddIdentity(IServiceCollection services)
