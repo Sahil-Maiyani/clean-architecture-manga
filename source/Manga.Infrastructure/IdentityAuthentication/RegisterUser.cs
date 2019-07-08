@@ -11,9 +11,13 @@ namespace Manga.Infrastructure.IdentityAuthentication
     {
         private readonly UserManager<IdentityUser> userManager;
 
-        public Task<Guid> Execute(string username, string password)
+        public RegisterUser(UserManager<IdentityUser> userManager) {
+            this.userManager = userManager;
+        }
+
+        public Guid Execute(string username, string password)
         {
-            return RegistrationAsync(username, password);
+            return RegistrationAsync(username, password).Result;
         }
 
         private async Task<Guid> RegistrationAsync(string username, string password)

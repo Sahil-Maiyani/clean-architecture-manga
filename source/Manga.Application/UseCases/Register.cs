@@ -6,6 +6,7 @@ namespace Manga.Application.UseCases
     using Manga.Domain.Accounts;
     using Manga.Domain;
     using Manga.Application.Services;
+    using System;
 
     public sealed class Register : IUseCase
     {
@@ -13,7 +14,7 @@ namespace Manga.Application.UseCases
         private readonly IOutputHandler _outputHandler;
         private readonly ICustomerRepository _customerRepository;
         private readonly IAccountRepository _accountRepository;
-        private readonly IRegisterUserService registerUserService;
+        private readonly IRegisterUserService _registerUserService;
 
         public Register(
             IEntitiesFactory entityFactory,
@@ -26,7 +27,7 @@ namespace Manga.Application.UseCases
             _outputHandler = outputHandler;
             _customerRepository = customerRepository;
             _accountRepository = accountRepository;
-            this.registerUserService = registerUserService;
+            _registerUserService = registerUserService;
         }
 
         public async Task Execute(Input input)
@@ -37,7 +38,15 @@ namespace Manga.Application.UseCases
                 return;
             }
 
-            var customer = _entityFactory.NewCustomer(input.SSN, input.Name);
+            var customerId = _registerUserService.Execute(input.Name.ToString(), input.Password.ToString());
+            if (customerId == null || customerId == Guid.Empty)
+            {
+                _outputHandler.Error("An error throw when registering user ID");
+                return;
+            }
+
+
+            var customer = _entityFactory.NewCustomer(customerId, input.SSN, input.Name);
             var account = _entityFactory.NewAccount(customer.Id);
 
             ICredit credit = account.Deposit(input.InitialAmount);

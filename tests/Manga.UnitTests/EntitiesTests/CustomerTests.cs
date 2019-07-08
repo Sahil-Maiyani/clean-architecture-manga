@@ -4,6 +4,7 @@ namespace Manga.UnitTests.EntitiesTests
     using Manga.Domain.Customers;
     using Manga.Domain.Accounts;
     using Manga.Domain.ValueObjects;
+    using System;
 
     public class CustomerTests
     {
@@ -12,6 +13,7 @@ namespace Manga.UnitTests.EntitiesTests
         {
             // Arrange
             var sut = new Customer(
+               Guid.NewGuid(),
                 new SSN("741214-3054"),
                 new Name("Sammy Fredriksson"));
 

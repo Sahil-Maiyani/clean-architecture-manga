@@ -12,6 +12,7 @@ namespace Manga.UnitTests.UseCasesTests
     using Application.Boundaries.Register;
     using System;
     using Manga.Infrastructure.IdentityAuthentication;
+    using Microsoft.AspNetCore.Identity;
 
     public sealed class RegisterTests
     {
@@ -38,7 +39,7 @@ namespace Manga.UnitTests.UseCasesTests
             var context = new MangaContext();
             var customerRepository = new CustomerRepository(context);
             var accountRepository = new AccountRepository(context);
-            var registerUser = new RegisterUser();
+            var registerUser = new RegisterUser(new UserManager<IdentityUser>());
 
             var sut = new Register(
                 entityFactory,

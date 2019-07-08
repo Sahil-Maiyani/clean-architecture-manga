@@ -7,6 +7,6 @@ namespace Manga.Application.Services
 {
     public interface IRegisterUserService
     {
-        Task<Guid> Execute(string username, string password);
+        Guid Execute(string username, string password);
     }
 }

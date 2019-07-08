@@ -20,15 +20,15 @@ namespace Manga.IntegrationTests.EntityFrameworkTests
                 .Options;
 
             var factory = new DefaultEntitiesFactory();
-            var customer = factory.NewCustomer(new SSN("198608177955"), new Name("Ivan Paulovich"));
+            var customer = factory.NewCustomer(Guid.NewGuid(), new SSN("198608177955"), new Name("Ivan Paulovich"));
 
-            using(var context = new MangaContext(options))
+            using (var context = new MangaContext(options))
             {
                 var repository = new CustomerRepository(context);
                 await repository.Add(customer);
             }
 
-            using(var context = new MangaContext(options))
+            using (var context = new MangaContext(options))
             {
                 Assert.Equal(1, context.Customers.Count());
             }
@@ -43,7 +43,7 @@ namespace Manga.IntegrationTests.EntityFrameworkTests
 
             ICustomer customer = null;
 
-            using(var context = new MangaContext(options))
+            using (var context = new MangaContext(options))
             {
                 context.Database.EnsureCreated();
 
