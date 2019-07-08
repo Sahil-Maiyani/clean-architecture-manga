@@ -18,4 +18,8 @@
     <ProjectReference Include="..\Manga.Infrastructure\Manga.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UseCases\Login\" />
+  </ItemGroup>
+
 </Project>
