@@ -10,6 +10,7 @@ using Manga.Infrastructure.EntityFrameworkDataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
@@ -38,6 +39,13 @@ namespace Manga.WebApi
             AddSwagger(services);
             AddMangaCore(services);
             AddSQLPersistence(services);
+            AddIdentity(services);
+        }
+
+        private void AddIdentity(IServiceCollection services)
+        {
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                        .AddEntityFrameworkStores<MangaContext>();
         }
 
         private void AddSQLPersistence(IServiceCollection services)
@@ -54,7 +62,7 @@ namespace Manga.WebApi
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "My API (Production)", Version = "v1" });
+                c.SwaggerDoc("v1", new Info { Title = "My API (Development)", Version = "v1" });
             });
         }
 
@@ -93,6 +101,7 @@ namespace Manga.WebApi
             UseSwagger(app);
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
         }
 

@@ -4,9 +4,10 @@ namespace Manga.Infrastructure.EntityFrameworkDataAccess
     using Manga.Domain.Accounts;
     using Manga.Domain.Customers;
     using Manga.Domain.ValueObjects;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public sealed class MangaContext : DbContext
+    public sealed class MangaContext : IdentityDbContext
     {
         public MangaContext(DbContextOptions options) : base(options)
         {
@@ -20,6 +21,8 @@ namespace Manga.Infrastructure.EntityFrameworkDataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Account>()
                 .ToTable("Account");
 
