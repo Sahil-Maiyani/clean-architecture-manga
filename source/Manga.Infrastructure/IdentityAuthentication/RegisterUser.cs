@@ -10,9 +10,12 @@ namespace Manga.Infrastructure.IdentityAuthentication
     public sealed class RegisterUser : IRegisterUserService
     {
         private readonly UserManager<IdentityUser> userManager;
+        private readonly IGenerateToken generateToken;
 
-        public RegisterUser(UserManager<IdentityUser> userManager) {
+        public RegisterUser(UserManager<IdentityUser> userManager, IGenerateToken generateToken)
+        {
             this.userManager = userManager;
+            this.generateToken = generateToken;
         }
 
         public Guid Execute(string username, string password)
@@ -27,6 +30,7 @@ namespace Manga.Infrastructure.IdentityAuthentication
 
             if (result.Succeeded)
             {
+                var debug = await generateToken.GetToken(username, user);
                 return new Guid(user.Id);
             }
 

@@ -3,8 +3,10 @@ namespace Manga.WebApi.UseCases.Register
     using System.Threading.Tasks;
     using Manga.Application.Boundaries.Register;
     using Manga.Domain.ValueObjects;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    [Authorize]
     [Route("api/[controller]")]
     public class CustomersController : Controller
     {
