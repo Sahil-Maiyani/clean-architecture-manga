@@ -18,7 +18,7 @@ namespace Manga.Infrastructure.IdentityAuthentication.Basic
             this.jWTConfigs = jWTConfigs;
         }
 
-        async Task<object> IGenerateToken.GetToken(string username, IdentityUser user)
+        async Task<string> IGenerateToken.GetToken(string username, IdentityUser user)
         {
             var claims = new List<Claim>
             {

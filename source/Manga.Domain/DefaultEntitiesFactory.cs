@@ -15,7 +15,7 @@ namespace Manga.Domain
 
         public ICustomer NewCustomer(Guid customerId, SSN ssn, Name name)
         {
-            var customer = new Customer(customerId,ssn, name);
+            var customer = new Customer(customerId, ssn, name);
             return customer;
         }
     }

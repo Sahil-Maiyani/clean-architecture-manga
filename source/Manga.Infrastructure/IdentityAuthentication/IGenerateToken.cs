@@ -8,6 +8,6 @@ namespace Manga.Infrastructure.IdentityAuthentication
 {
     public interface IGenerateToken
     {
-        Task<object> GetToken(string username, IdentityUser user);
+        Task<string> GetToken(string username, IdentityUser user);
     }
 }

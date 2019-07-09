@@ -6,7 +6,6 @@ namespace Manga.WebApi.UseCases.Register
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Authorize]
     [Route("api/[controller]")]
     public class CustomersController : Controller
     {

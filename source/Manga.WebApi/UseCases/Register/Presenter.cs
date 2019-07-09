@@ -39,12 +39,14 @@ namespace Manga.WebApi.UseCases.Register
                 output.Customer.CustomerId,
                 output.Customer.SSN,
                 output.Customer.Name,
+                output.Token,
                 accounts
             );
 
             ViewModel = new CreatedAtRouteResult("GetCustomer",
-                new { 
-                    customerId = model.CustomerId 
+                new
+                {
+                    customerId = model.CustomerId
                 },
                 model);
         }
