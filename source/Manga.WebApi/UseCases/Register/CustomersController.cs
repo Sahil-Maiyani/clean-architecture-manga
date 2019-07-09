@@ -6,7 +6,7 @@ namespace Manga.WebApi.UseCases.Register
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Route("api/[controller]")]
+    [Route("api/register/[controller]")]
     public class CustomersController : Controller
     {
         private readonly IUseCase _registerUseCase;
