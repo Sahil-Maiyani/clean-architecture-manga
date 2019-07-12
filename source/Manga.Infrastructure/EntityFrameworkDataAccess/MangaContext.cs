@@ -4,10 +4,11 @@ namespace Manga.Infrastructure.EntityFrameworkDataAccess
     using Manga.Domain.Accounts;
     using Manga.Domain.Customers;
     using Manga.Domain.ValueObjects;
+    using Manga.Infrastructure.EntityFrameworkDataAccess.Basic;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public sealed class MangaContext : IdentityDbContext
+    public sealed class MangaContext : IdentityDbContext<ApplicationUser>
     {
         public MangaContext(DbContextOptions options) : base(options)
         {
@@ -63,7 +64,8 @@ namespace Manga.Infrastructure.EntityFrameworkDataAccess
             );
 
             modelBuilder.Entity<Credit>().HasData(
-                new { 
+                new
+                {
                     Id = new Guid("f5117315-e789-491a-b662-958c37237f9b"),
                     AccountId = new Guid("4c510cfe-5d61-4a46-a3d9-c4313426655f"),
                     Amount = new PositiveAmount(400),
@@ -73,7 +75,8 @@ namespace Manga.Infrastructure.EntityFrameworkDataAccess
             );
 
             modelBuilder.Entity<Debit>().HasData(
-                new { 
+                new
+                {
                     Id = new Guid("3d6032df-7a3b-46e6-8706-be971e3d539f"),
                     AccountId = new Guid("4c510cfe-5d61-4a46-a3d9-c4313426655f"),
                     Amount = new PositiveAmount(400),
