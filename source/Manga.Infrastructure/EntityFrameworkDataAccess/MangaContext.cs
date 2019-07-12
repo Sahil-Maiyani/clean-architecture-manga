@@ -16,7 +16,7 @@ namespace Manga.Infrastructure.EntityFrameworkDataAccess
         }
 
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<Customer> Customers { get; set; }
+        //public DbSet<Customer> Customers { get; set; }
         public DbSet<Credit> Credits { get; set; }
         public DbSet<Debit> Debits { get; set; }
 
@@ -24,22 +24,28 @@ namespace Manga.Infrastructure.EntityFrameworkDataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Account>()
-                .ToTable("Account");
-
-            modelBuilder.Entity<Customer>()
-                .ToTable("Customer")
+            modelBuilder.Entity<ApplicationUser>()
                 .Property(b => b.SSN)
                 .HasConversion(
                     v => v.ToString(),
                     v => new SSN(v));
 
-            modelBuilder.Entity<Customer>()
-                .ToTable("Customer")
-                .Property(b => b.Name)
-                .HasConversion(
-                    v => v.ToString(),
-                    v => new Name(v));
+            modelBuilder.Entity<Account>()
+                .ToTable("Account");
+
+            //modelBuilder.Entity<Customer>()
+            //    .ToTable("Customer")
+            //    .Property(b => b.SSN)
+            //    .HasConversion(
+            //        v => v.ToString(),
+            //        v => new SSN(v));
+
+            //modelBuilder.Entity<Customer>()
+            //    .ToTable("Customer")
+            //    .Property(b => b.Name)
+            //    .HasConversion(
+            //        v => v.ToString(),
+            //        v => new Name(v));
 
             modelBuilder.Entity<Debit>()
                 .ToTable("Debit")
@@ -55,9 +61,9 @@ namespace Manga.Infrastructure.EntityFrameworkDataAccess
                     v => v.ToAmount().ToDouble(),
                     v => new PositiveAmount(v));
 
-            modelBuilder.Entity<Customer>().HasData(
-                new { Id = new Guid("197d0438-e04b-453d-b5de-eca05960c6ae"), Name = new Name("Test User"), SSN = new SSN("19860817-9999") }
-            );
+            //modelBuilder.Entity<Customer>().HasData(
+            //    new { Id = new Guid("197d0438-e04b-453d-b5de-eca05960c6ae"), Name = new Name("Test User"), SSN = new SSN("19860817-9999") }
+            //);
 
             modelBuilder.Entity<Account>().HasData(
                 new { Id = new Guid("4c510cfe-5d61-4a46-a3d9-c4313426655f"), CustomerId = new Guid("197d0438-e04b-453d-b5de-eca05960c6ae") }
