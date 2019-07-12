@@ -18,29 +18,30 @@ namespace Manga.Infrastructure.EntityFrameworkDataAccess
 
         public async Task Add(ICustomer customer)
         {
-            await _context.Customers.AddAsync((Customer) customer);
-            await _context.SaveChangesAsync();
+            //await _context.Customers.AddAsync((Customer) customer);
+            //await _context.SaveChangesAsync();
         }
 
         public async Task<ICustomer> Get(Guid id)
         {
-            Customer customer = await _context.Customers
-                .FindAsync(id);
+            //Customer customer = await _context.Customers
+            //    .FindAsync(id);
 
-            var accounts = _context.Accounts
-                .Where(e => e.CustomerId == id)
-                .Select(e => e.Id)
-                .ToList();
+            //var accounts = _context.Accounts
+            //    .Where(e => e.CustomerId == id)
+            //    .Select(e => e.Id)
+            //    .ToList();
 
-            customer.LoadAccounts(accounts);
+            //customer.LoadAccounts(accounts);
 
-            return customer;
+            //return customer;
+            return null;
         }
 
         public async Task Update(ICustomer customer)
         {
-            _context.Customers.Update((Customer) customer);
-            await _context.SaveChangesAsync();
+            //_context.Customers.Update((Customer) customer);
+            //await _context.SaveChangesAsync();
         }
     }
 }
