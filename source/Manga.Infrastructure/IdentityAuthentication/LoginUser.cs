@@ -1,5 +1,6 @@
 ﻿using Manga.Application.Boundaries.Login;
 using Manga.Application.Services;
+using Manga.Infrastructure.EntityFrameworkDataAccess.Basic;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,11 @@ namespace Manga.Infrastructure.IdentityAuthentication
 {
     public class LoginUser : ILoginUserService
     {
-        private readonly SignInManager<IdentityUser> signInManager;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly IGenerateToken generateToken;
 
-        public LoginUser(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IGenerateToken generateToken)
+        public LoginUser(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IGenerateToken generateToken)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;

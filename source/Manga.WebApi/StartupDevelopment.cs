@@ -10,6 +10,7 @@ using Manga.Application.Services;
 using Manga.Application.UseCases;
 using Manga.Domain;
 using Manga.Infrastructure.EntityFrameworkDataAccess;
+using Manga.Infrastructure.EntityFrameworkDataAccess.Basic;
 using Manga.Infrastructure.IdentityAuthentication;
 using Manga.Infrastructure.IdentityAuthentication.Basic;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -92,7 +93,7 @@ namespace Manga.WebApi
 
         private void AddIdentity(IServiceCollection services)
         {
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                         .AddEntityFrameworkStores<MangaContext>();
         }
 

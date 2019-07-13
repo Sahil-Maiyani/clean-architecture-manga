@@ -8,6 +8,7 @@ namespace Manga.Application.UseCases
     using Manga.Application.Services;
     using System;
     using Manga.Domain.ValueObjects;
+    using Manga.Application.Boundaries.Register.Service;
 
     public sealed class Register : IUseCase
     {
@@ -39,7 +40,14 @@ namespace Manga.Application.UseCases
                 return;
             }
 
-            var registerOutput = _registerUserService.Execute(input.Name.ToString(), input.Password.ToString());
+            var registerOutput = _registerUserService
+                .Execute(new ServiceInput
+                {
+                    Name = input.Name.ToString(),
+                    SSN = input.SSN.ToString(),
+                    Password = input.Password.ToString()
+
+                });
             if (registerOutput == null)
             {
                 _outputHandler.Error("An error throw when registering user ID");
@@ -59,7 +67,7 @@ namespace Manga.Application.UseCases
 
             customer.Register(account.Id);
 
-            await _customerRepository.Add(customer);
+            //await _customerRepository.Add(customer);
             await _accountRepository.Add(account, credit);
 
             Output output = new Output(customer, account, registerOutput.Token);

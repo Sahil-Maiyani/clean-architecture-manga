@@ -1,5 +1,7 @@
 ﻿using Manga.Application.Boundaries.Register;
+using Manga.Application.Boundaries.Register.Service;
 using Manga.Application.Services;
+using Manga.Infrastructure.EntityFrameworkDataAccess.Basic;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -11,36 +13,36 @@ namespace Manga.Infrastructure.IdentityAuthentication
 {
     public sealed class RegisterUser : IRegisterUserService
     {
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IGenerateToken generateToken;
-        private RegisterOutput Output { get; set; }
+        private ServiceOutput Output { get; set; }
 
-        public RegisterUser(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IGenerateToken generateToken)
+        public RegisterUser(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IGenerateToken generateToken)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.generateToken = generateToken;
         }
 
-        public RegisterOutput Execute(string username, string password)
+        public ServiceOutput Execute(ServiceInput input)
         {
-            return RegistrationAsync(username, password).Result;
+            return RegistrationAsync(input).Result;
         }
 
-        private async Task<RegisterOutput> RegistrationAsync(string username, string password)
+        private async Task<ServiceOutput> RegistrationAsync(ServiceInput input)
         {
-            var user = new IdentityUser { UserName = username };
-            var result = await userManager.CreateAsync(user, password);
+            var user = new ApplicationUser { UserName = input.Name, SSN = input.SSN };
+            var result = await userManager.CreateAsync(user, input.Password);
 
             if (result.Succeeded)
             {
                 await signInManager.SignInAsync(user, isPersistent: false);
 
-                var token = await generateToken.GetToken(username, user);
+                var token = await generateToken.GetToken(user.UserName, user);
 
 
-                return new RegisterOutput { CustomerId = new Guid(user.Id), Token = token };
+                return new ServiceOutput { CustomerId = new Guid(user.Id), Token = token };
             }
 
             return null;

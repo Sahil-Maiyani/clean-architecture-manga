@@ -8,6 +8,6 @@ namespace Manga.Infrastructure.EntityFrameworkDataAccess.Basic
 {
     public class ApplicationUser: IdentityUser
     {
-        public SSN SSN { get; set; }
+        public string SSN { get; set; }
     }
 }

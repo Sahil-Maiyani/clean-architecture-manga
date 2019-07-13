@@ -19,16 +19,14 @@ namespace Manga.Infrastructure.EntityFrameworkDataAccess
         //public DbSet<Customer> Customers { get; set; }
         public DbSet<Credit> Credits { get; set; }
         public DbSet<Debit> Debits { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ApplicationUser>()
-                .Property(b => b.SSN)
-                .HasConversion(
-                    v => v.ToString(),
-                    v => new SSN(v));
+                .Property(b => b.SSN);
 
             modelBuilder.Entity<Account>()
                 .ToTable("Account");

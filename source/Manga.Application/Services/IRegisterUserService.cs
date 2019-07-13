@@ -1,4 +1,5 @@
 ﻿using Manga.Application.Boundaries.Register;
+using Manga.Application.Boundaries.Register.Service;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Manga.Application.Services
 {
     public interface IRegisterUserService
     {
-        RegisterOutput Execute(string username, string password);
+        ServiceOutput Execute(ServiceInput input);
     }
 }
